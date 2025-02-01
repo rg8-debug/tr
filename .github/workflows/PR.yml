@@ -54,3 +54,15 @@ jobs:
           OUTPUT3: 3
           OUTPUT4: ${{ needs.trigger-checks.outputs.conformance-comment }}
         run: echo "$OUTPUT0 $OUTPUT1 $OUTPUT2 $OUTPUT3 $OUTPUT4 ==> $OUTPUT1[0] $OUTPUT0[0]"
+
+  test:
+    needs: [trigger-checks]
+    strategy:
+      matrix
+          version: ${{fromJson(needs.trigger-checks.outputs.v4)}}
+    steps:
+      - name: ddd
+        id: ddd
+        env:
+          DDDOUTPUT0: ${{ matrix.version }}
+        run: echo "$DDDOUTPUT0 ==>"
