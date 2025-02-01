@@ -27,7 +27,7 @@ jobs:
         id: conformance_comment_trigger
         if: ${{ github.event.issue.pull_request }}
         with:
-          trigger: '/test-conformance**'
+          trigger: '/test-conformance **'
           reaction: eyes
           allow_arguments: true
         env:
