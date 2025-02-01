@@ -1,0 +1,24 @@
+name: Run Integration Tests
+
+on:
+  workflow_call:
+    inputs:
+      checkout_ref:
+        description: 'Ref to checkout'
+        required: true
+        type: string
+      cni_provider:
+        description: 'mke4 cni provider name'
+        required: true
+        type: string
+
+jobs:
+  integration-tests:
+
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          ref: ${{ inputs.checkout_ref }}
+
