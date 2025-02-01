@@ -34,10 +34,6 @@ jobs:
         env:
           GITHUB_TOKEN: '${{ secrets.PAT_CI_GHAX }}'
 
-  setup-vars:
-    uses: MirantisContainers/shared-workflows/.github/workflows/vars.yml@v0.0.1
-    with:
-      env-config-path: .github/development.env # No values are actually used ATM
   integration-by-comment:
     needs: [trigger-checks]
     outputs:
