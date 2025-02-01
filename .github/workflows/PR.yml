@@ -52,4 +52,4 @@ jobs:
           OUTPUT2: "yyy"
           OUTPUT3: 3
           OUTPUT4: ${{ needs.trigger-checks.outputs.conformance-comment }}
-        run: echo "$OUTPUT0 $OUTPUT1 $OUTPUT2 $OUTPUT3 $OUTPUT4"
+        run: echo "$OUTPUT0 $OUTPUT1 $OUTPUT2 $OUTPUT3 $OUTPUT4 ==> $OUTPUT1[0]"
