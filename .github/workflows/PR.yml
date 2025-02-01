@@ -34,7 +34,7 @@ jobs:
           GITHUB_TOKEN: '${{ secrets.PAT_CI_GHAX }}'
       - name: s2
         id: s2
-        run: echo {{ steps.conformance_comment_trigger.outputs.triggered }}
+        run: echo ${{ steps.conformance_comment_trigger.outputs.triggered }}
 
   integration-by-comment:
     runs-on: ubuntu-latest
@@ -45,5 +45,5 @@ jobs:
     steps:
       - name: xxx
         id: yyy
-        run: echo {{ outputs.output_1 }} {{ needs.trigger-checks.outputs.v2 }} {{ needs.trigger-checks.outputs.v2 }}
+        run: echo ${{ outputs.output_1 }} ${{ needs.trigger-checks.outputs.v2 }} ${{ needs.trigger-checks.outputs.v2 }}
 
