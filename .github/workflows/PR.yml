@@ -23,6 +23,7 @@ jobs:
       conformance-comment: ${{ steps.conformance_comment_trigger.outputs.triggered == 'true' }}
       v2: ${{ (steps.conformance_comment_trigger.outputs.arguments)[0] }}
       v3: ${{ steps.conformance_comment_trigger.outputs.arguments }}
+      v4: ${{ toJson(steps.conformance_comment_trigger.outputs.arguments) }}
     steps:
       - uses: shanegenschaw/pull-request-comment-trigger@v2.1.0
         id: conformance_comment_trigger
@@ -47,9 +48,9 @@ jobs:
       - name: xxx
         id: yyy
         env:
-          OUTPUT0: ${{ needs.trigger-checks.outputs.v2 }}
+          OUTPUT0: ${{ needs.trigger-checks.outputs.v4 }}
           OUTPUT1: ${{ needs.trigger-checks.outputs.v3 }}
           OUTPUT2: "yyy"
           OUTPUT3: 3
           OUTPUT4: ${{ needs.trigger-checks.outputs.conformance-comment }}
-        run: echo "$OUTPUT0 $OUTPUT1 $OUTPUT2 $OUTPUT3 $OUTPUT4 ==> $OUTPUT1[0]"
+        run: echo "$OUTPUT0 $OUTPUT1 $OUTPUT2 $OUTPUT3 $OUTPUT4 ==> $OUTPUT1[0] $OUTPUT0[0]"
