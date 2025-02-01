@@ -45,6 +45,6 @@ jobs:
     steps:
       - name: xxx
         id: yyy
-        run: echo "${{ needs.trigger-checks.outputs.v2 }} ${{ needs.trigger-checks.outputs.v2 }}"
-
-
+        env:
+          OUTPUT1: ${{ needs.trigger-checks.outputs.v2 }}
+        run: echo "$OUTPUT1"
