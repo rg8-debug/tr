@@ -57,6 +57,7 @@ jobs:
 
   test:
     needs: [trigger-checks]
+    runs-on: ubuntu-latest
     strategy:
       matrix:
           version: ${{ fromJson(needs.trigger-checks.outputs.v4) }}
