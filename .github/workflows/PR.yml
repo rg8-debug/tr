@@ -43,3 +43,4 @@ jobs:
       - name: xxx
         id: yyy
         run: echo {{ outputs.output_1 }} {{ needs.trigger-checks.outputs.v2 }} {{ needs.trigger-checks.outputs.v2 }}
+
