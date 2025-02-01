@@ -22,7 +22,6 @@ jobs:
     outputs:
       conformance-comment: ${{ steps.conformance_comment_trigger.outputs.triggered == 'true' }}
       v2: ${{ steps.conformance_comment_trigger.outputs.arguments[0] }}
-      v2j: ${{ fromJson(steps.conformance_comment_trigger.outputs.arguments)[0] }}
     steps:
       - uses: shanegenschaw/pull-request-comment-trigger@v2.1.0
         id: conformance_comment_trigger
@@ -43,4 +42,4 @@ jobs:
     steps:
       - name: xxx
         id: yyy
-        run: echo {{ outputs.output_1 }} {{ needs.trigger-checks.outputs.v2 }} {{ needs.trigger-checks.outputs.v2j }}
+        run: echo {{ outputs.output_1 }} {{ needs.trigger-checks.outputs.v2 }} {{ needs.trigger-checks.outputs.v2 }}
