@@ -58,8 +58,8 @@ jobs:
   test:
     needs: [trigger-checks]
     strategy:
-      matrix
-          version: ${{fromJson(needs.trigger-checks.outputs.v4)}}
+      matrix:
+          version: ${{ fromJson(needs.trigger-checks.outputs.v4) }}
     steps:
       - name: ddd
         id: ddd
