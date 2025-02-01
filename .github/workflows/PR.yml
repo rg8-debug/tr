@@ -54,7 +54,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-          version: ${{ fromJson(needs.trigger-checks.outputs.v5) }}
+          version: ${{ needs.trigger-checks.outputs.v5 }}
     steps:
       - name: ddd
         id: ddd
