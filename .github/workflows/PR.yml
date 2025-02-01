@@ -21,7 +21,7 @@ jobs:
       contents: read
     outputs:
       conformance-comment: ${{ steps.conformance_comment_trigger.outputs.triggered == 'true' }}
-      v2: ${{ steps.conformance_comment_trigger.outputs.arguments)[0] }}
+      v2: ${{ steps.conformance_comment_trigger.outputs.arguments[0] }}
       v2j: ${{ fromJson(steps.conformance_comment_trigger.outputs.arguments)[0]) }}
     steps:
       - uses: shanegenschaw/pull-request-comment-trigger@v2.1.0
