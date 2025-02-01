@@ -32,6 +32,9 @@ jobs:
           allow_arguments: true
         env:
           GITHUB_TOKEN: '${{ secrets.PAT_CI_GHAX }}'
+      - name: s2
+        id: s2
+        run: echo {{ steps.conformance_comment_trigger.outputs.triggered }}
 
   integration-by-comment:
     runs-on: ubuntu-latest
