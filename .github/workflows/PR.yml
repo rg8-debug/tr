@@ -40,6 +40,6 @@ jobs:
       output_1: ${{ needs.trigger-checks.outputs.output_1 }}
     if: ${{ needs.trigger-checks.outputs.conformance-comment == 'true' }}
     steps:
-      - env:
-          OUTPUT2: ${{outputs.output_1}}
-        run: echo "$OUTPUT2" {{ needs.trigger-checks.outputs.v2 }} {{ needs.trigger-checks.outputs.v2j }}
+      - name: xxx
+        id: yyy
+        run: echo {{ outputs.output_1 }} {{ needs.trigger-checks.outputs.v2 }} {{ needs.trigger-checks.outputs.v2j }}
