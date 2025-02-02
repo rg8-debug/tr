@@ -109,9 +109,9 @@ jobs:
   test:
     needs: [trigger-checks]
     runs-on: ubuntu-latest
-      strategy:
-        matrix:
-          version: ${{ needs.trigger-checks.outputs.conformance_matrix_args }}
+    strategy:
+      matrix:
+        version: ${{ needs.trigger-checks.outputs.conformance_matrix_args }}
     steps:
       - name: ddd
         id: ddd
