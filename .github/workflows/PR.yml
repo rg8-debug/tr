@@ -102,7 +102,7 @@ jobs:
           reaction: eyes
           allow_arguments: true
         env:
-          GITHUB_TOKEN: '${{ secrets.PAT_CI_BOUNDLESS }}'
+          GITHUB_TOKEN: '${{ secrets.PAT_CI_GHAX }}'
       - id: cni_comment_trigger_cni_name
         if: ${{ steps.cni_comment_trigger.outputs.triggered == 'true' }}
         run: |
