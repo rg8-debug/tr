@@ -45,7 +45,6 @@ jobs:
           echo ${{ steps.conformance_comment_trigger_argcount_1.outputs.arguments }} > $HOME/ARGS
           cat $HOME/ARGS
           echo "$(cat $HOME/ARGS)"
-          echo "$(cat $HOME/ARG)"
       - uses: shanegenschaw/pull-request-comment-trigger@v2.1.0
         id: conformance_comment_trigger_argcount_2
         if: ${{ github.event.issue.pull_request }}
@@ -91,6 +90,8 @@ jobs:
       - id: set_conformance_matrix
         if: ${{ steps.conformance_comment_trigger_argcount_0.outputs.triggered == 'true' || steps.conformance_comment_trigger_argcount_1.outputs.triggered == 'true' || steps.conformance_comment_trigger_argcount_2.outputs.triggered == 'true' || steps.conformance_comment_trigger_argcount_3.outputs.triggered == 'true' }}
         run: |
+          cat $HOME/ARGS
+          echo "$(cat $HOME/ARGS)"
           echo "conf_args=$(cat $HOME/ARGS)" >> $GITHUB_OUTPUT
 
   integration-by-comment:
@@ -104,7 +105,10 @@ jobs:
         id: yyy
         env:
           OUTPUT5: ${{ needs.trigger-checks.outputs.conformance_matrix_args }}
-        run: echo "==>$OUTPUT1 ==>$OUTPUT2 ==>$OUTPUT3 ==>$OUTPUT4 ==>$OUTPUT5 ==>$OUTPUT6"
+        run: |
+          echo "==>$OUTPUT1 ==>$OUTPUT2 ==>$OUTPUT3 ==>$OUTPUT4 ==>$OUTPUT5 ==>$OUTPUT6"
+          cat $HOME/ARGS
+          echo "$(cat $HOME/ARGS)"
 
   test:
     needs: [trigger-checks]
