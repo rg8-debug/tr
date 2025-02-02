@@ -90,7 +90,8 @@ jobs:
       - id: set_conformance_matrix
         if: ${{ steps.conformance_comment_trigger_argcount_0.outputs.triggered == 'true' || steps.conformance_comment_trigger_argcount_1.outputs.triggered == 'true' || steps.conformance_comment_trigger_argcount_2.outputs.triggered == 'true' || steps.conformance_comment_trigger_argcount_3.outputs.triggered == 'true' }}
         run: |
-          echo "conf_matrix_args=$(cat $HOME/ARGS|sed 's/.$//'|sed 's/^.//')" >> $GITHUB_OUTPUT
+          echo "conf_matrix_args=$(cat $HOME/ARGS)" >> $GITHUB_OUTPUT
+          #echo "conf_matrix_args=$(cat $HOME/ARGS|sed 's/.$//'|sed 's/^.//')" >> $GITHUB_OUTPUT
 
   integration-by-comment:
     runs-on: ubuntu-latest
