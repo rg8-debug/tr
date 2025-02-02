@@ -27,8 +27,8 @@ jobs:
       - id: conformance_comment_trigger_ensure_file_present
         run: |
           echo 'truncate .ARGS'
-          touch .ARGS
-          > .ARGS
+          touch $HOME/.ARGS
+          > $HOME/.ARGS
       - uses: shanegenschaw/pull-request-comment-trigger@v2.1.0
         id: conformance_comment_trigger_argcount_1
         if: ${{ github.event.issue.pull_request }}
@@ -42,7 +42,8 @@ jobs:
         if: ${{ steps.conformance_comment_trigger_argcount_1.outputs.triggered == 'true' }}
         run: |
           echo 1 ${{ steps.conformance_comment_trigger_argcount_1.outputs.args }}
-          echo ${{ steps.conformance_comment_trigger_argcount_1.outputs.args }} > .ARGS
+          echo ${{ steps.conformance_comment_trigger_argcount_1.outputs.args }} > $HOME/.ARGS
+          echo "$(cat $HOME/.ARGS)"
       - uses: shanegenschaw/pull-request-comment-trigger@v2.1.0
         id: conformance_comment_trigger_argcount_2
         if: ${{ github.event.issue.pull_request }}
@@ -56,7 +57,7 @@ jobs:
         if: ${{ steps.conformance_comment_trigger_argcount_2.outputs.triggered == 'true' }}
         run: |
           echo 2 ${{ steps.conformance_comment_trigger_argcount_2.outputs.args }}
-          echo ${{ steps.conformance_comment_trigger_argcount_2.outputs.args }} > .ARGS
+          echo ${{ steps.conformance_comment_trigger_argcount_2.outputs.args }} > $HOME/.ARGS
       - uses: shanegenschaw/pull-request-comment-trigger@v2.1.0
         id: conformance_comment_trigger_argcount_3
         if: ${{ github.event.issue.pull_request }}
@@ -70,7 +71,7 @@ jobs:
         if: ${{ steps.conformance_comment_trigger_argcount_3.outputs.triggered == 'true' }}
         run: |
           echo 3 ${{ steps.conformance_comment_trigger_argcount_3.outputs.args }}
-          echo ${{ steps.conformance_comment_trigger_argcount_3.outputs.args }} > .ARGS
+          echo ${{ steps.conformance_comment_trigger_argcount_3.outputs.args }} > $HOME/.ARGS
       - uses: shanegenschaw/pull-request-comment-trigger@v2.1.0
         id: conformance_comment_trigger_argcount_0
         if: ${{ github.event.issue.pull_request && steps.conformance_comment_trigger_argcount_1.outputs.triggered != 'true' && steps.conformance_comment_trigger_argcount_2.outputs.triggered != 'true' && steps.conformance_comment_trigger_argcount_3.outputs.triggered != 'true' }}
@@ -84,11 +85,11 @@ jobs:
         if: ${{ steps.conformance_comment_trigger_argcount_0.outputs.triggered == 'true' }}
         run: |
           echo 0 'calico,kuberouter,cilium' ${{ steps.conformance_comment_trigger_argcount_1.outputs.triggered }} ${{ steps.conformance_comment_trigger_argcount_2.outputs.triggered }} ${{ steps.conformance_comment_trigger_argcount_3.outputs.triggered }}
-          echo 'calico,kuberouter,cilium' > .ARGS
+          echo 'calico,kuberouter,cilium' > $HOME/.ARGS
       - id: set_conformance_matrix
         if: ${{ steps.conformance_comment_trigger_argcount_0.outputs.triggered == 'true' || steps.conformance_comment_trigger_argcount_1.outputs.triggered == 'true' || steps.conformance_comment_trigger_argcount_2.outputs.triggered == 'true' || steps.conformance_comment_trigger_argcount_3.outputs.triggered == 'true' }}
         run: |
-          echo "conf_args=$(cat .ARGS)" >> $GITHUB_OUTPUT
+          echo "conf_args=$(cat $HOME/.ARGS)" >> $GITHUB_OUTPUT
 
   integration-by-comment:
     runs-on: ubuntu-latest
