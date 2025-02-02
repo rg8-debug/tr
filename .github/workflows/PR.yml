@@ -111,7 +111,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        version: ${{ toJson(needs.trigger-checks.outputs.conformance_matrix_args) }}
+        version: ${{ fromJson(toJson(needs.trigger-checks.outputs.conformance_matrix_args)) }}
     steps:
       - name: ddd
         id: ddd
