@@ -83,7 +83,7 @@ jobs:
       - id: conformance_comment_trigger_argcount_0_output
         if: ${{ steps.conformance_comment_trigger_argcount_0.outputs.triggered == 'true' }}
         run: |
-          echo 0 'calico,kuberouter,cilium'
+          echo 0 'calico,kuberouter,cilium' ${{ steps.conformance_comment_trigger_argcount_1.outputs.triggered }} ${{ steps.conformance_comment_trigger_argcount_2.outputs.triggered }} ${{ steps.conformance_comment_trigger_argcount_3.outputs.triggered }}
           echo 'calico,kuberouter,cilium' > .ARGS
       - id: set_conformance_matrix
         if: ${{ steps.conformance_comment_trigger_argcount_0.outputs.triggered == 'true' }} || ${{ steps.conformance_comment_trigger_argcount_1.outputs.triggered == 'true' }} || ${{ steps.conformance_comment_trigger_argcount_2.outputs.triggered == 'true' }} || ${{ steps.conformance_comment_trigger_argcount_3.outputs.triggered == 'true' }}
