@@ -24,6 +24,7 @@ jobs:
       v5: ${{ steps.conformance_comment_trigger.outputs.arguments }}
       conformance_matrix_args: ${{ steps.set_conformance_matrix.outputs.conf_matrix_args }}
       cni-comment: ${{ steps.cni_comment_trigger.outputs.triggered == 'true' }}
+      cni-comment-test:  ${{ steps.cni_comment_trigger_cni_name.outputs.test }}
       cni-comment-cni-name: ${{ steps.cni_comment_trigger_cni_name.outputs.cni_name }}
     steps:
       - id: conformance_comment_trigger_ensure_file_present
@@ -110,6 +111,7 @@ jobs:
           cni_name=${{ steps.cni_comment_trigger.outputs.arguments }}
           echo "cni-comment-cni-name=$(echo $cni_name|sed 's/.$//'|sed 's/^.//')"
           echo "cni-comment-cni-name=$(echo $cni_name|sed 's/.$//'|sed 's/^.//')" >> $GITHUB_OUTPUT
+          echo "test=xx1" >> $GITHUB_OUTPUT
 
   integration-by-comment:
     runs-on: ubuntu-latest
@@ -124,8 +126,9 @@ jobs:
         env:
           OUTPUT5: ${{ needs.trigger-checks.outputs.conformance_matrix_args }}
           OUTPUT4: ${{ needs.trigger-checks.outputs.cni-comment-cni-name }}
+          OUTPUT3: ${{ needs.trigger-checks.outputs.cni-comment-test }}
         run: |
-          echo  ${{ needs.trigger-checks.outputs.cni-comment-cni-name }} "==>$OUTPUT1 ==>$OUTPUT2 ==>$OUTPUT3 ==> $OUTPUT4 ==> $OUTPUT5 ==>$OUTPUT6"
+          echo  ${{ needs.trigger-checks.outputs.cni-comment-cni-name }} "==>$OUTPUT1 ==>$OUTPUT2 ==> $OUTPUT3 ==> $OUTPUT4 ==> $OUTPUT5 ==>$OUTPUT6"
 
   test:
     needs: [trigger-checks]
