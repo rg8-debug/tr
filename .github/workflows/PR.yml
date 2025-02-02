@@ -24,25 +24,11 @@ jobs:
       v5: ${{ steps.conformance_comment_trigger.outputs.arguments }}
       conformance_matrix_args: ${{ steps.set_conformance_matrix.outputs.conf_matrix }}
     steps:
-      - uses: shanegenschaw/pull-request-comment-trigger@v2.1.0
-        id: conformance_comment_trigger_argcount_0
-        if: ${{ github.event.issue.pull_request }}
-        with:
-          trigger: '/test-conformance'
-          reaction: eyes
-          allow_arguments: false
-        env:
-          GITHUB_TOKEN: '${{ secrets.PAT_CI_GHAX }}'
       - id: conformance_comment_trigger_ensure_file_present
         run: |
           echo 'truncate .ARGS'
           touch .ARGS
           > .ARGS
-      - id: conformance_comment_trigger_argcount_0_output
-        if: ${{ steps.conformance_comment_trigger_argcount_0.outputs.triggered == 'true' }}
-        run: |
-          echo 0 'calico,kuberouter,cilium'
-          echo 'calico,kuberouter,cilium' > .ARGS
       - uses: shanegenschaw/pull-request-comment-trigger@v2.1.0
         id: conformance_comment_trigger_argcount_1
         if: ${{ github.event.issue.pull_request }}
@@ -85,6 +71,20 @@ jobs:
         run: |
           echo 3 ${{ steps.conformance_comment_trigger_argcount_3.outputs.args }}
           echo ${{ steps.conformance_comment_trigger_argcount_3.outputs.args }} > .ARGS
+      - uses: shanegenschaw/pull-request-comment-trigger@v2.1.0
+        id: conformance_comment_trigger_argcount_0
+        if: ${{ github.event.issue.pull_request }} && ${{ steps.conformance_comment_trigger_argcount_1.outputs.triggered == 'false' }} && ${{ steps.conformance_comment_trigger_argcount_2.outputs.triggered == 'false' }} && ${{ steps.conformance_comment_trigger_argcount_3.outputs.triggered == 'false }}
+        with:
+          trigger: '/test-conformance'
+          reaction: eyes
+          allow_arguments: false
+        env:
+          GITHUB_TOKEN: '${{ secrets.PAT_CI_GHAX }}'
+      - id: conformance_comment_trigger_argcount_0_output
+        if: ${{ steps.conformance_comment_trigger_argcount_0.outputs.triggered == 'true' }}
+        run: |
+          echo 0 'calico,kuberouter,cilium'
+          echo 'calico,kuberouter,cilium' > .ARGS
       - id: set_conformance_matrix
         if: ${{ steps.conformance_comment_trigger_argcount_0.outputs.triggered == 'true' }} || ${{ steps.conformance_comment_trigger_argcount_1.outputs.triggered == 'true' }} || ${{ steps.conformance_comment_trigger_argcount_2.outputs.triggered == 'true' }} || ${{ steps.conformance_comment_trigger_argcount_3.outputs.triggered == 'true' }}
         run: |
