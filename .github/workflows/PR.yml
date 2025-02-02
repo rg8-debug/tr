@@ -23,6 +23,7 @@ jobs:
       conformance-comment: ${{ steps.conformance_comment_trigger_argcount_0.outputs.triggered == 'true' || steps.conformance_comment_trigger_argcount_1.outputs.triggered == 'true' || steps.conformance_comment_trigger_argcount_2.outputs.triggered == 'true' || steps.conformance_comment_trigger_argcount_3.outputs.triggered == 'true' }}
       v5: ${{ steps.conformance_comment_trigger.outputs.arguments }}
       conformance_matrix_args: ${{ steps.set_conformance_matrix.outputs.conf_matrix_args }}
+      cni-comment: ${{ steps.cni_comment_trigger.outputs.triggered == 'true' }}
       cni-comment-cni-name: ${{ steps.cni_comment_trigger_cni_name.outputs.cni_name }}
     steps:
       - id: conformance_comment_trigger_ensure_file_present
@@ -114,7 +115,8 @@ jobs:
     needs: [trigger-checks]
     outputs:
       output_1: ${{ needs.trigger-checks.outputs.output_1 }}
-    if: ${{ needs.trigger-checks.outputs.conformance-comment == 'true' }}
+        #if: ${{ needs.trigger-checks.outputs.conformance-comment == 'true' }}
+    if: ${{ needs.trigger-checks.outputs.cni-comment == 'true' }}
     steps:
       - name: xxx
         id: yyy
