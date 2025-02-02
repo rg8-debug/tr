@@ -93,7 +93,7 @@ jobs:
           cat $HOME/ARGS
           echo "a1 $(cat $HOME/ARGS)"
           echo "a2 conf_args=$(cat $HOME/ARGS)"
-          echo "a3 conf_args=$(cat $HOME/ARGS)" >> $GITHUB_OUTPUT
+          echo "conf_args=$(cat $HOME/ARGS)" >> $GITHUB_OUTPUT
 
   integration-by-comment:
     runs-on: ubuntu-latest
