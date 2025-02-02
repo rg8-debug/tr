@@ -73,7 +73,7 @@ jobs:
           echo ${{ steps.conformance_comment_trigger_argcount_3.outputs.args }} > .ARGS
       - uses: shanegenschaw/pull-request-comment-trigger@v2.1.0
         id: conformance_comment_trigger_argcount_0
-        if: (${{ github.event.issue.pull_request }} && ${{ steps.conformance_comment_trigger_argcount_1.outputs.triggered != 'true' }} && ${{ steps.conformance_comment_trigger_argcount_2.outputs.triggered != 'true' }} && ${{ steps.conformance_comment_trigger_argcount_3.outputs.triggered != 'true' }})
+        if: ${{ github.event.issue.pull_request && steps.conformance_comment_trigger_argcount_1.outputs.triggered != 'true' && steps.conformance_comment_trigger_argcount_2.outputs.triggered != 'true' && steps.conformance_comment_trigger_argcount_3.outputs.triggered != 'true' }}
         with:
           trigger: '/test-conformance'
           reaction: eyes
@@ -86,7 +86,7 @@ jobs:
           echo 0 'calico,kuberouter,cilium' ${{ steps.conformance_comment_trigger_argcount_1.outputs.triggered }} ${{ steps.conformance_comment_trigger_argcount_2.outputs.triggered }} ${{ steps.conformance_comment_trigger_argcount_3.outputs.triggered }}
           echo 'calico,kuberouter,cilium' > .ARGS
       - id: set_conformance_matrix
-        if: ${{ steps.conformance_comment_trigger_argcount_0.outputs.triggered == 'true' }} || ${{ steps.conformance_comment_trigger_argcount_1.outputs.triggered == 'true' }} || ${{ steps.conformance_comment_trigger_argcount_2.outputs.triggered == 'true' }} || ${{ steps.conformance_comment_trigger_argcount_3.outputs.triggered == 'true' }}
+        if: ${{ steps.conformance_comment_trigger_argcount_0.outputs.triggered == 'true' || steps.conformance_comment_trigger_argcount_1.outputs.triggered == 'true' || steps.conformance_comment_trigger_argcount_2.outputs.triggered == 'true' || steps.conformance_comment_trigger_argcount_3.outputs.triggered == 'true' }}
         run: |
           echo "conf_args=$(cat .ARGS)" >> $GITHUB_OUTPUT
 
