@@ -43,6 +43,7 @@ jobs:
         run: |
           echo 1 ${{ steps.conformance_comment_trigger_argcount_1.outputs.arguments }}
           echo ${{ steps.conformance_comment_trigger_argcount_1.outputs.arguments }} > $HOME/ARGS
+          cat $HOME/ARGS
           echo "$(cat $HOME/ARGS)"
       - uses: shanegenschaw/pull-request-comment-trigger@v2.1.0
         id: conformance_comment_trigger_argcount_2
