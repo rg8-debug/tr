@@ -109,12 +109,12 @@ jobs:
   test:
     needs: [trigger-checks]
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-          version: ${{ fromJson(needs.trigger-checks.outputs.conformance_matrix_args) }}
+      #strategy:
+      #matrix:
+      #    version: ${{ fromJson(needs.trigger-checks.outputs.conformance_matrix_args) }}
     steps:
       - name: ddd
         id: ddd
         env:
           DDDOUTPUT0: ${{ matrix.version }}
-        run: echo "$DDDOUTPUT0 ==>"
+        run: echo ${{ needs.trigger-checks.outputs.conformance_matrix_args }} "<==$DDDOUTPUT0 ==>"
