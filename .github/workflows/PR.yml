@@ -108,6 +108,7 @@ jobs:
         if: ${{ steps.cni_comment_trigger.outputs.triggered == 'true' }}
         run: |
           cni_name=${{ steps.cni_comment_trigger.outputs.arguments }}
+          echo "cni-comment-cni-name=$(echo $cni_name|sed 's/.$//'|sed 's/^.//')"
           echo "cni-comment-cni-name=$(echo $cni_name|sed 's/.$//'|sed 's/^.//')" >> $GITHUB_OUTPUT
 
   integration-by-comment:
