@@ -22,7 +22,7 @@ jobs:
     outputs:
       conformance-comment: ${{ steps.conformance_comment_trigger_argcount_0.outputs.triggered == 'true' || steps.conformance_comment_trigger_argcount_1.outputs.triggered == 'true' || steps.conformance_comment_trigger_argcount_2.outputs.triggered == 'true' || steps.conformance_comment_trigger_argcount_3.outputs.triggered == 'true' }}
       v5: ${{ steps.conformance_comment_trigger.outputs.arguments }}
-      conformance_matrix_args: ${{ steps.set_conformance_matrix.outputs.conf_args }}
+      conformance_matrix_args: ${{ steps.set_conformance_matrix.outputs.conf_matrix_args }}
     steps:
       - id: conformance_comment_trigger_ensure_file_present
         run: |
@@ -90,10 +90,7 @@ jobs:
       - id: set_conformance_matrix
         if: ${{ steps.conformance_comment_trigger_argcount_0.outputs.triggered == 'true' || steps.conformance_comment_trigger_argcount_1.outputs.triggered == 'true' || steps.conformance_comment_trigger_argcount_2.outputs.triggered == 'true' || steps.conformance_comment_trigger_argcount_3.outputs.triggered == 'true' }}
         run: |
-          cat $HOME/ARGS
-          echo "a1 $(cat $HOME/ARGS)"
-          echo "a2 conf_args=$(cat $HOME/ARGS)"
-          echo "conf_args=$(cat $HOME/ARGS)" >> $GITHUB_OUTPUT
+          echo "conf_matrix_args=$(cat $HOME/ARGS)" >> $GITHUB_OUTPUT
 
   integration-by-comment:
     runs-on: ubuntu-latest
@@ -114,7 +111,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-          version: ${{ fromJson(needs.trigger-checks.outputs.v5) }}
+          version: ${{ fromJson(needs.trigger-checks.outputs.conformance_matrix_args) }}
     steps:
       - name: ddd
         id: ddd
