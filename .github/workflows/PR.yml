@@ -25,7 +25,7 @@ jobs:
       conformance_matrix_args: ${{ steps.set_conformance_matrix.outputs.conf_matrix_args }}
       cni-comment: ${{ steps.cni_comment_trigger.outputs.triggered == 'true' }}
       cni-comment-test:  ${{ steps.cni_comment_trigger_cni_name.outputs.test }}
-      cni-comment-cni-name: ${{ steps.cni_comment_trigger_cni_name.outputs.cni_name }}
+      cni-comment-cni-name: ${{ steps.cni_comment_trigger_cni_name.outputs.cni-comment-cni-name }}
     steps:
       - id: conformance_comment_trigger_ensure_file_present
         run: |
