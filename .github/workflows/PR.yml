@@ -133,15 +133,16 @@ jobs:
   test:
     needs: [trigger-checks]
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        version: ${{ fromJson(toJson(needs.trigger-checks.outputs.conformance_matrix_args)) }}
+      #strategy:
+      #matrix:
+      #  version: ${{ fromJson(toJson(needs.trigger-checks.outputs.conformance_matrix_args)) }}
     steps:
       - name: ddd
         id: ddd
         env:
           DDDOUTPUT0: ${{ matrix.version }}
-        run: echo ${{ needs.trigger-checks.outputs.conformance_matrix_args }} "<==$DDDOUTPUT0 ==>"
+            #run: echo ${{ needs.trigger-checks.outputs.conformance_matrix_args }} "<==$DDDOUTPUT0 ==>"
+        run: false
 
   reaction-cni-success:
     needs: [ trigger-checks, test ]
