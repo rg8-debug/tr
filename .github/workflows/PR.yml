@@ -154,7 +154,7 @@ jobs:
       node_id: ${{ github.event.comment.node_id }}
   reaction-cni-failure:
     needs: [ trigger-checks, test ]
-    if: ${{ '!cancelled()' && needs.trigger-checks.outputs.cni-comment == 'true' && needs.test.result == 'failure' }}
+    if: ${{ !cancelled() && needs.trigger-checks.outputs.cni-comment == 'true' && needs.test.result == 'failure' }}
     secrets: inherit
     uses: ./.github/workflows/reaction-failure.yml
     with:
