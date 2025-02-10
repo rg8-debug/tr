@@ -142,3 +142,20 @@ jobs:
         env:
           DDDOUTPUT0: ${{ matrix.version }}
         run: echo ${{ needs.trigger-checks.outputs.conformance_matrix_args }} "<==$DDDOUTPUT0 ==>"
+
+  reaction-cni-success:
+    needs: [ trigger-checks, test ]
+    if: ${{ needs.trigger-checks.outputs.cni-comment == 'true' && needs.test.result == 'success' }}
+    secrets: inherit
+    uses: ./.github/workflows/reaction-success.yml
+    with:
+      pr_number: ${{ github.event.issue.number }}
+      node_id: ${{ github.event.comment.node_id }}
+  reaction-cni-failure:
+    needs: [ trigger-checks, test ]
+    if: ${{ needs.trigger-checks.outputs.cni-comment == 'true' && needs.test.result == 'failure' }}
+    secrets: inherit
+    uses: ./.github/workflows/reaction-failure.yml
+    with:
+      pr_number: ${{ github.event.issue.number }}
+      node_id: ${{ github.event.comment.node_id }}
