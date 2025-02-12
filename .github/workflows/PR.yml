@@ -119,7 +119,7 @@ jobs:
     outputs:
       output_1: ${{ needs.trigger-checks.outputs.output_1 }}
         #if: ${{ needs.trigger-checks.outputs.conformance-comment == 'true' }}
-    if: ${{ false && needs.trigger-checks.outputs.cni-comment == 'true' }}
+    if: ${{ needs.trigger-checks.outputs.cni-comment == 'true' }}
     steps:
       - name: xxx
         id: yyy
